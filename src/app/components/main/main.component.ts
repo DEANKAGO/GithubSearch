@@ -20,7 +20,9 @@ export class MainComponent implements OnInit {
   public searchUser(){
     this.githubService.getProfile(this.githubUser).subscribe((data: any) => {
       this.githubProfile = data;
-    }
+    }, (error: any)=>{
+      this.errorMessage = error;
+    })
   }
 
   ngOnInit(): void {
