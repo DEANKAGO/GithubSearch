@@ -17,7 +17,7 @@ export class UsersService {
     let dataUrl = 'https://api.github.com/users/${search}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}';
     console.log('it works')
     return this.httpClient.get<any>(dataUrl).pipe(
-      retry(count 1),
+      retry(),
       catchError(this.handleErrors)
     )
   }

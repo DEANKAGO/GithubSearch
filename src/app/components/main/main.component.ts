@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { error } from 'console';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
   public githubUser: string | undefined;
+  public githubProfile:any;
+  public githubRepos:any[];
+  public errorMessage:string;
+
+  
 
 
-  constructor() { }
+  constructor(private githubService:GithubService) { }
+
+  public searchUser(){
+    this.githubService.getProfile(this.githubUser).subscribe(() => {}, ()=>{})
+  }
 
   ngOnInit(): void {
   }
