@@ -1,33 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
+import { CLIENT_ID } from '../credentials/githubCred';
+import { CLIENT_SECRET } from '../credentials/githubCred';
+import { count } from 'console';
+import * as e from 'cors';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-
-  private username!: string;
-  private clientid = "3c69cc3dfb84ec9fc7e4";
-  private clientsecret = "6e5f0e51d8d70dca92b3868f643ee1fe4d72dbac";
  
-  getUserInfo(search: any){
-    let dataUrl = 'https://api.github.com/users/" + this.username + "?client_id=" + this.clientid + "&client_secret=" +this.clientsecret';
+  public getUserInfo(search: any){
+    let dataUrl = 'https://api.github.com/users/${search}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}';
+    console.log('it works')
+    return this.httpClient.get(dataUrl).pipe(
+      retry(count 1),
+      catchError(this.handleErrors)
+    )
   }
 
-  constructor(private httpClient: HttpClient) { 
-    console.log('working');
-    this.username
+  public handleErrors (error:HttpErrorResponse){
+    let errorMessage:string;
+    if(error.error instanceof ErrorEvent){
+      errorMessage = 'MESSAGE : ${error.error.message}';
+    }
+    else{
+      errorMessage = 'STATUS : ${error.status} MESSAGE : ${error.message}';
+    }
+    return throwError(errorMessage)
   }
 
-  // myMap = new Map();
 
-//   getUserInfo(){
-//     return this.http.get("https://api.github.com/users/" + this.username + "?client_id=" + this.clientid + "&client_secret=" +this.clientsecret)
-//     this.map((res: { json: () => any; }) => res.json());
-//   }
-// }
-// ``
+
+  constructor(private httpClient: HttpClient) { }
+
 }
