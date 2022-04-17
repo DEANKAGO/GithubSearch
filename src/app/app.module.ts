@@ -8,6 +8,7 @@ import { MainComponent } from './components/main/main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ReposComponent } from './components/repos/repos.component';
+import {FormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ReposComponent } from './components/repos/repos.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
