@@ -13,10 +13,10 @@ import * as e from 'cors';
 })
 export class UsersService {
  
-  public getUserInfo(search: any){
+  public getUserInfo(search: any): Observable<any>{
     let dataUrl = 'https://api.github.com/users/${search}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}';
     console.log('it works')
-    return this.httpClient.get(dataUrl).pipe(
+    return this.httpClient.get<any>(dataUrl).pipe(
       retry(count 1),
       catchError(this.handleErrors)
     )
