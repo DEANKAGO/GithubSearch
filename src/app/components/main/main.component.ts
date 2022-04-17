@@ -23,7 +23,20 @@ export class MainComponent implements OnInit {
     }, (error: any)=>{
       this.errorMessage = error;
     })
+        
+
+    this.githubService.getRepos(this.githubUser).subscribe((data: any) => {
+      this.githubRepos = data;
+    }, (error: any)=>{
+      this.errorMessage = error;
+    });
   }
+
+
+  
+
+  
+
 
   ngOnInit(): void {
   }
