@@ -1,51 +1,45 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { from, Observable, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
-import { CLIENT_ID } from '../credentials/githubCred';
-import { CLIENT_SECRET } from '../credentials/githubCred';
-import { count } from 'console';
-import * as e from 'cors';
+import { environment } from 'src/environments/environment';
+import { Users } from '../classes/users';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
+
+  githubUser: Users
+
+
+  getUserInfo(search: any){
+    return new Promise<void>((resolve,reject)=>{
+      this.httpClient.get<any>("https://api.github.com/users/"+search+"?access_key="+environment.apiKey).toPromise().then(response=>{
+      
+      this.githubUser.userName= response.login
+      this.githubUser.avatar=response.avatar_url
+      this.githubUser.bio=response.bio
+      this.githubUser.followers=response.followers
+      this.githubUser.following=response.following
+      this.githubUser.home=response.html_url
+  
+        resolve()
+      },
+      error=>{
+        reject(error)
+      })
+    })
+  }
+
  
-  public getUserInfo(search: any): Observable<any[]>{
-    let dataUrl = 'https://api.github.com/users/${search}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}';
-    console.log('it works')
-    return this.httpClient.get<any[]>(dataUrl).pipe(
-      retry(),
-      catchError(this.handleErrors)
-    )
+  
+
+
+  constructor(private httpClient: HttpClient) { 
+    this.githubUser=new Users("", "", "", 0, 0, "")
+
   }
-
-  public handleErrors (error:HttpErrorResponse){
-    let errorMessage:string;
-    if(error.error instanceof ErrorEvent){
-      errorMessage = 'MESSAGE : ${error.error.message}';
-    }
-    else{
-      errorMessage = 'STATUS : ${error.status} MESSAGE : ${error.message}';
-    }
-    return throwError(errorMessage)
-  }
-
-
-  public getRepos(search: any): Observable<any[]>{
-    let dataUrl = 'https://api.github.com/users/${search}/repos?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}';
-    console.log('it works')
-    return this.httpClient.get<any[]>(dataUrl).pipe(
-      retry(),
-      catchError(this.handleErrors)
-    )
-  }
-
-
-
-
-  constructor(private httpClient: HttpClient) { }
 
 }

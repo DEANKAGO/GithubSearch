@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { error } from 'console';
+import { UsersService } from 'src/app/services/users.service';
+
+
 
 @Component({
   selector: 'app-main',
@@ -7,29 +9,13 @@ import { error } from 'console';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  public githubUser: string | undefined;
-  public githubProfile:any;
-  public githubRepos:any[];
-  public errorMessage:string;
 
   
 
 
-  constructor(private githubService:GithubService) { }
+  constructor(private usersService: UsersService) {}
 
   public searchUser(){
-    this.githubService.getProfile(this.githubUser).subscribe((data: any) => {
-      this.githubProfile = data;
-    }, (error: any)=>{
-      this.errorMessage = error;
-    })
-        
-
-    this.githubService.getRepos(this.githubUser).subscribe((data: any) => {
-      this.githubRepos = data;
-    }, (error: any)=>{
-      this.errorMessage = error;
-    });
   }
 
 
