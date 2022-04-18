@@ -8,7 +8,8 @@ import { MainComponent } from './components/main/main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ReposComponent } from './components/repos/repos.component';
-import {FormsModule} from '@angular/forms'
+import {FormsModule} from '@angular/forms';
+import { GitPipe } from './pipes/git.pipe';
 
 @NgModule({
   declarations: [
@@ -16,14 +17,16 @@ import {FormsModule} from '@angular/forms'
     CustomDirectiveDirective,
     MainComponent,
     ProfileComponent,
-    ReposComponent
+    ReposComponent,
+    GitPipe,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
