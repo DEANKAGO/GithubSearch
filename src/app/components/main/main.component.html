@@ -3,16 +3,34 @@
     <div class="col">
       <div class="card">
         <div class="card-header bg-secondary text-light">
-          <h4>Github Profie Search </h4>
+          <h4>Github Profie Search</h4>
         </div>
 
         <div class="card-body">
-          <form #form="ngForm" action="" class="" (ngSubmit)="submitInput(searchInput.name)" >
+          <form
+            #form="ngForm"
+            action=""
+            class=""
+            (ngSubmit)="submitInput(searchInput.name)"
+          >
             <div class="form-group">
-              <input #user="ngModel" [(ngModel)]="searchInput.name" name="user" type="search" class="form-control" placeholder="Github Usename">
+              <input
+                #user="ngModel"
+                [(ngModel)]="searchInput.name"
+                name="user"
+                type="search"
+                class="form-control"
+                placeholder="Github Usename"
+              />
             </div>
             <div>
-              <button class="btn btn-secondary btn-sm mt-2" type="submit" value="submit" >Search</button>
+              <button
+                class="btn btn-secondary btn-sm mt-2"
+                type="submit"
+                value="submit"
+              >
+                Search
+              </button>
             </div>
           </form>
         </div>
@@ -20,6 +38,25 @@
     </div>
   </div>
 </div>
-<div class="container-fluid">
-  <app-profile></app-profile>
+<div *ngIf="profile" class="container-fluid">
+  <div class="card mt-2">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-4">
+          <img src="{{ profile.avatar }}" alt="" />
+          <h5>
+            <span>Name: {{ profile.userName }}</span>
+          </h5>
+        </div>
+        <div class="col-8">
+          <div>
+            <span>{{ profile.followers }}</span>
+          </div>
+          <div class="text center">
+            <a class="btn btn-primary " href="{{ profile.home }}">My Profile</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

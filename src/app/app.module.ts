@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { CustomDirectiveDirective } from './Directives/custom-directive.directive';
 import { MainComponent } from './components/main/main.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ProfileComponent } from './components/profile/profile.component';
 import { ReposComponent } from './components/repos/repos.component';
 import {FormsModule} from '@angular/forms';
 import { GitPipe } from './pipes/git.pipe';
@@ -16,7 +15,6 @@ import { GitPipe } from './pipes/git.pipe';
     AppComponent,
     CustomDirectiveDirective,
     MainComponent,
-    ProfileComponent,
     ReposComponent,
     GitPipe,
 

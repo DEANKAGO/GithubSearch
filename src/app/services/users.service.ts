@@ -12,9 +12,10 @@ import { Users } from '../classes/users';
 export class UsersService {
 
   githubUser: Users
+  
 
 
-  getUserInfo(search: any){
+  getUserInfo(search: string){
     return new Promise<void>((resolve,reject)=>{
       this.httpClient.get<any>("https://api.github.com/users/"+search+"?access_key="+environment.apiKey).toPromise().then(response=>{
       
@@ -24,7 +25,7 @@ export class UsersService {
       this.githubUser.followers=response.followers
       this.githubUser.following=response.following
       this.githubUser.home=response.html_url
-      console.log(this.githubUser)
+      // console.log(this.githubUser)
   
         resolve()
       },
@@ -40,6 +41,7 @@ export class UsersService {
 
   constructor(private httpClient: HttpClient) { 
     this.githubUser=new Users("", "", "", 0, 0, "")
+
 
   }
 
