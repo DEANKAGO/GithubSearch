@@ -9,6 +9,8 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
+  searchInput={}
+  submitInput(name: string){}
 
   
 
@@ -28,3 +30,5 @@ export class MainComponent implements OnInit {
   }
 
 }
+
+

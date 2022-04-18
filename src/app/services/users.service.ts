@@ -24,6 +24,7 @@ export class UsersService {
       this.githubUser.followers=response.followers
       this.githubUser.following=response.following
       this.githubUser.home=response.html_url
+      console.log(this.githubUser)
   
         resolve()
       },
