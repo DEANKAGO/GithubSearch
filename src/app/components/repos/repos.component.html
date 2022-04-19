@@ -1,1 +1,12 @@
-<p>repos works!</p>
+<div [hidden]="repos.length===0" class="card container-fluid mt-3">
+  <div class="card-header text-center">
+    <h4>Repos</h4>
+  </div>
+  <div *ngFor="let repo of repos" class="card-body d-grid gap-3">
+    <p class="p-1 bg-light border shadow">
+      Repository Name: {{ repo.name }} <br> Description: {{ repo.description }} <br> Fork: {{ repo.fork }} <br> Created: {{ repo.date | git}} days ago <br>
+      <a appCustomDirective class="btn btn-sm btn-primary pill-right" href="{{ repo.home }}">visit My Project On Github</a>
+    </p>
+  </div>
+</div>
+

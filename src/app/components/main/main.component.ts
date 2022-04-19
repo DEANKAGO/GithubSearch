@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Repos } from 'src/app/classes/repos';
 import { Users } from 'src/app/classes/users';
 import { UsersService } from 'src/app/services/users.service';
+
 
 
 
@@ -10,19 +13,33 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  // @Input() userProfile: Users
 
   searchInput: any={}
-  profile=new Users("", "", "", 0, 0, "")
+  profile=<Users>{}
+  repos:Array<Repos>= []
+  isEmpty= true
 
-  submitInput(name: string){
+  async submitInput(name: string, myForm: NgForm){
+    try{
+      
+      this.repos.length=0
     this.searchInput.name= name
     // console.log(this.searchInput)
-    this.usersService.getUserInfo(this.searchInput.name)
+    let res=await this.usersService.getUserInfo(this.searchInput.name)
+    console.log(res)
     this.profile=this.usersService.githubUser
-    console.log(this.profile)
+    // console.log(this.profile)
+    this.repos=this.usersService.repos
+    this.isEmpty=false
+    console.log(this.isEmpty)
+    myForm.reset()
+    }catch(e){
+      console.log("Hei I coutch an Error: ",e)
+    }
 
   }
+
+
 
   
 
@@ -40,11 +57,15 @@ export class MainComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.usersService.getUserInfo("deankago")
-    this.profile=this.usersService.githubUser
+    // this.usersService.getUserInfo("deankago")
+    // this.profile=this.usersService.githubUser
 
   }
 
 }
 
+
+function newDate(): any {
+  throw new Error('Function not implemented.');
+}
 

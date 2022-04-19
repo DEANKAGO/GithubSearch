@@ -9,9 +9,9 @@
         <div class="card-body">
           <form
             #form="ngForm"
-            action=""
+            action="" id="githubForm" name="githubForm" #githubForm="ngForm"
             class=""
-            (ngSubmit)="submitInput(searchInput.name)"
+            (ngSubmit)="submitInput(searchInput.name, githubForm)"
           >
             <div class="form-group">
               <input
@@ -20,14 +20,14 @@
                 name="user"
                 type="search"
                 class="form-control"
-                placeholder="Github Usename"
+                placeholder="Github Usename" required
               />
             </div>
             <div>
               <button
                 class="btn btn-secondary btn-sm mt-2"
                 type="submit"
-                value="submit"
+                value="submit" [disabled]="!githubForm.valid"
               >
                 Search
               </button>
@@ -38,25 +38,43 @@
     </div>
   </div>
 </div>
-<div *ngIf="profile" class="container-fluid">
+<div [hidden]="isEmpty" class="container-fluid">
   <div class="card mt-2">
     <div class="container-fluid">
       <div class="row">
         <div class="col-4">
-          <img src="{{ profile.avatar }}" alt="" />
-          <h5>
-            <span>Name: {{ profile.userName }}</span>
-          </h5>
+          <img
+            class="img-fluid p-3 img-circle"
+            src="{{ profile.avatar }}"
+            alt=""
+          />
         </div>
-        <div class="col-8">
-          <div>
-            <span>{{ profile.followers }}</span>
-          </div>
-          <div class="text center">
-            <a class="btn btn-primary " href="{{ profile.home }}">My Profile</a>
+        <div class="col-8 card-body">
+          <ul class="list-group">
+            <li class="list-group-item">Name: {{ profile.userName }}</li>
+            <li class="list-group-item" *ngIf="profile.bio">
+              Bio: {{ profile.bio }}
+            </li>
+            <li class="list-group-item">Followers: {{ profile.followers }}</li>
+            <li class="list-group-item">Following: {{ profile.following }}</li>
+            <li class="list-group-item">
+              Created: {{ profile.date | git }} days ago.
+            </li>
+          </ul>
+          <div class="text center mt-3">
+            <a
+              appCustomDirective
+              class="btn btn-primary"
+              target="_blank"
+              href="{{ profile.home }}"
+              >View Profile on Github</a
+            >
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div>
+  <app-repos [repos]="repos"></app-repos>
 </div>
