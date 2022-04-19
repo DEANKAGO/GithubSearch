@@ -25,13 +25,11 @@ export class MainComponent implements OnInit {
       this.repos.length=0
     this.searchInput.name= name
     // console.log(this.searchInput)
-    let res=await this.usersService.getUserInfo(this.searchInput.name)
-    console.log(res)
+    await this.usersService.getUserInfo(this.searchInput.name)
     this.profile=this.usersService.githubUser
     // console.log(this.profile)
     this.repos=this.usersService.repos
     this.isEmpty=false
-    console.log(this.isEmpty)
     myForm.reset()
     }catch(e){
       console.log("Hei I coutch an Error: ",e)
