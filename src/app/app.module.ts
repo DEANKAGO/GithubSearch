@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReposComponent } from './components/repos/repos.component';
 import {FormsModule} from '@angular/forms';
 import { GitPipe } from './pipes/git.pipe';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { GitPipe } from './pipes/git.pipe';
     MainComponent,
     ReposComponent,
     GitPipe,
+    HomeComponent
 
   ],
   imports: [

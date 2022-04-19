@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="card mt-2">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-4">
+          <img
+            class="img-fluid p-3 img-circle"
+            src="{{ profile.avatar }}"
+            alt=""
+          />
+        </div>
+        <div class="col-8 card-body">
+          <ul class="list-group">
+            <li class="list-group-item">Name: {{ profile.userName }}</li>
+            <li class="list-group-item" *ngIf="profile.bio">
+              Bio: {{ profile.bio }}
+            </li>
+            <li class="list-group-item">Followers: {{ profile.followers }}</li>
+            <li class="list-group-item">Following: {{ profile.following }}</li>
+            <li class="list-group-item">
+              Created: {{ profile.date | git }} days ago.
+            </li>
+          </ul>
+          <div class="text center mt-3">
+            <a
+              appCustomDirective
+              class="btn btn-primary"
+              target="_blank"
+              href="{{ profile.home }}"
+              >View Profile on Github</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-repos [repos]="repos"></app-repos>
