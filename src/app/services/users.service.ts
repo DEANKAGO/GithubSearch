@@ -16,7 +16,7 @@ export class UsersService {
   repos:Array<Repos>= []
 
   constructor(private httpClient: HttpClient) { 
-    // this.githubUser=new Users("", "", "", 0, 0, "", new Date())
+    this.githubUser=new Users("", "", "", 0, 0, "", new Date())
   }
   
 
@@ -36,6 +36,7 @@ export class UsersService {
         resolve(res)
       }).catch((e)=>{console.log(e);reject(e)})
       this.httpClient.get<any>("https://api.github.com/users/"+search+"/repos?access_key="+environment.apiKey).toPromise().then(res=>{
+        this.repos.length=0
         for(let repo of res){
           let repository = new Repos("", "", "", 0, new Date())
           repository.name=repo.name;
