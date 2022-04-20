@@ -17,19 +17,21 @@ export class MainComponent implements OnInit {
   searchInput: any={}
   profile=<Users>{}
   repos:Array<Repos>= []
-  isEmpty= true
+  isEmpty= true  
 
   async submitInput(name: string, myForm: NgForm){
     try{
       
-      this.repos.length=0
+    this.repos.length=0
     this.searchInput.name= name
     // console.log(this.searchInput)
     await this.usersService.getUserInfo(this.searchInput.name)
     this.profile=this.usersService.githubUser
     // console.log(this.profile)
     this.repos=this.usersService.repos
+    console.log(this.repos)
     this.isEmpty=false
+   
     myForm.reset()
     }catch(e){
       console.log("Hei I coutch an Error: ",e)
@@ -37,33 +39,39 @@ export class MainComponent implements OnInit {
 
   }
 
+  
+
 
 
   
 
 
   constructor(private usersService: UsersService) {
-    this.profile.userName=""
+    // this.profile.userName=""
+   
   }
 
   public searchUser(){}
 
 
-  
-
-  
-
 
   ngOnInit(): void {
-    // this.usersService.getUserInfo("deankago")
+    // this.usersService.getUserInfo("")
     // this.profile=this.usersService.githubUser
+ 
 
   }
 
+
+
+
+
+  
+ 
 }
 
 
-function newDate(): any {
-  throw new Error('Function not implemented.');
-}
+// function newDate(): any {
+//   throw new Error('Function not implemented.');
+// }
 
